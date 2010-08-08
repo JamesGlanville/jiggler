@@ -13,9 +13,11 @@ class Jiggler(QtGui.QWidget):
 		zero("y")	
 	def zeroz(self):
 		zero("z")	
+	def setspeed(self,name):
+		print name
 	def __init__(self, parent=None):
 		QtGui.QWidget.__init__(self, parent)
-
+		xspeed=40
 		self.setGeometry(0, 0, 450, 300)
 		self.setWindowTitle('Jiggler')
 
@@ -28,24 +30,16 @@ class Jiggler(QtGui.QWidget):
 		zeroy.setGeometry(10, 45, 60, 35)
 		zeroz = QtGui.QPushButton('Zero Z',self)
 		zeroz.setGeometry(10, 80, 60, 35)
-		xbox = QtGui.QTextEdit()
+		xbox = QtGui.QTextEdit(str(xspeed),self)
 		ybox = QtGui.QTextEdit()
 		zbox = QtGui.QTextEdit()
 		slider = QtGui.QSlider(QtCore.Qt.Horizontal, self)
 
-		grid = QtGui.QGridLayout()
-		grid.setSpacing(10)
-		grid.addWidget(zerox,1,1)
-		grid.addWidget(zeroy,2,1)
-		grid.addWidget(zeroz,3,1)
-		grid.addWidget(xbox,1,2)
-		grid.addWidget(ybox,2,2)
-		grid.addWidget(zbox,3,2)
-		grid.addWidget(slider,1,3,1,10)
-#		xbox.setGeometry(50, 10, 60, 35)
-		#self.connect(slider, QtCore.SIGNAL('valueChanged(int)'), xbox,
-		#QtCore.SLOT('display(int)'))
-		self.setLayout(grid)
+		xbox.setGeometry(80, 15, 40, 30)
+		slider.setGeometry(120,15,150,150)
+		self.connect(slider, QtCore.SIGNAL('valueChanged(int)'), self,
+		QtCore.SLOT('setspeed(int,"char")'))
+		#self.setLayout(grid)
 
 		self.connect(quit, QtCore.SIGNAL('clicked()'), \
 			QtGui.qApp, QtCore.SLOT('quit()'))
